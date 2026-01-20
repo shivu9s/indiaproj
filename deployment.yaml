@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: indiaproj-container
-        image: shivu9s/indiaproj:latest
+        image: shivu9s/indiaproj:1.0   
         ports:
-        - containerPort: 80
+        - containerPort: 8080          
