@@ -48,16 +48,25 @@ pipeline {
           '''}
       }
     }
-    /*stage('Run Docker Container') {
+   stage('Deploy to Minikube (K8s)') {
       steps {
-        echo 'Running Java Application'
-        bat '''
-        docker rm -f myjavaproj-container || exit 0
-        docker run --name myjavaproj-container myjavaproj:1.0
-        
-        '''               
+        echo 'Deploying to Kubernetes'
+        sh '''
+          minikube start
+          minikube image load ${IMAGE_NAME}:${IMAGE_TAG}
+
+          kubectl apply -f deployment.yaml
+          kubectl apply -f services.yaml
+
+          kubectl get pods
+          kubectl get svc
+          minikube addons enable dashboard
+          minikube dashboard
+        '''
       }
-    }*/
+    }
+  }
+ye stage add kr lo apne m
   }
   post {
     success {
